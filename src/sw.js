@@ -51,7 +51,7 @@ precacheAndRoute(files)
 skipWaiting() // auto update service workers across all tabs when new release is available
 clientsClaim() // take control of client without having to wait for refresh
 
-/** 
+/**
  * manually upgrade service worker by sending a SKIP_WAITING message.
  * (remember to disable skipWaiting() above)
  */
