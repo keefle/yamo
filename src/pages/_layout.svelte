@@ -32,7 +32,8 @@
 </Navbar>
 
 <Notifications>
-    <Container class="d-flex justify-content-center flex-column">
+    <Container class="d-flex justify-content-center flex-column
+      align-items-center">
         <slot />
     </Container>
 </Notifications>
