@@ -61,7 +61,9 @@
 {#await promise then data}
 
 <div class="justify-content-center flex-column d-flex h-100 w-100" in:fade="{{ duration: 1000 }}">
-<h3 style="height: 10%;" class="pt-4 align-self-center"> Leaderboard </h3>
+
+<h3 class="pb-4 align-self-center"> Leaderboard </h3>
+
 <ModesPicker />
 
 <div style="min-height: 70%;">
