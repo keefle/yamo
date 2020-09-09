@@ -59,9 +59,10 @@
 
 {#await promise then data}
 
-<h3 class="align-self-center"> Leaderboard </h3>
+<h3 style="height: 10%;" class="pt-4 align-self-center"> Leaderboard </h3>
 <ModesPicker />
 
+<div style="min-height: 70%;">
 <Table hover>
   <thead>
     <tr>
@@ -82,6 +83,7 @@
     {/each}
   </tbody>
 </Table>
+</div>
 
-<Button href="/" color="primary"> Back to game </Button>
+<Button class="pb-2" href="/" color="primary"> Back to game </Button>
 {/await}

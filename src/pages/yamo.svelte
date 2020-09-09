@@ -12,8 +12,6 @@
   import { imx_pub_submit } from "../api.js";
   import { Canvas, Layer, t} from "svelte-canvas";
 
-
-
   let mode;
   let user;
 
@@ -62,13 +60,19 @@
     clearInterval(time_interval_id);
 
 
+    width  = innerWidth * 0.7;// 10 + tileSize * mode.cols
+    height = innerHeight * 0.7;// tileSize * mode.rows + tileSize
+
     if (Math.ceil(innerHeight/innerWidth) == 2) {
-      tileSize = Math.min(innerHeight, innerWidth)/(0.5+mode.cols)
+      tileSize = height/(mode.cols+mode.cols*0.4)
     } else {
-      tileSize = Math.min(innerHeight, innerWidth)/(3+mode.cols)
+      tileSize = height/(mode.cols+mode.cols*0.4)
     }
-    width  = 10 + tileSize * mode.cols
-    height = tileSize * mode.rows + tileSize
+
+    width = tileSize * mode.cols + 10
+    height = tileSize * mode.cols + tileSize * mode.cols * 0.4
+
+    console.log(tileSize)
 
     strip  = generate_blocks(mode.no_blocks, mode.colors.length);
     grid   = shuffle(strip.slice(strip.length - grid_size, strip.length));
@@ -156,7 +160,7 @@
   }
 
   function  draw_strip(context) {
-    let y = tileSize * mode.rows + tileSize/2;
+    let y = tileSize * mode.rows + tileSize * mode.rows * 0.25;
 
     let displayed_strip = strip.slice(strip.length - Math.min(grid_size, strip.length) ,strip.length);
 
@@ -264,10 +268,10 @@
 <svelte:window bind:innerHeight={innerHeight} bind:innerWidth={innerWidth}/>
 
 
-<div class="d-flex align-self-stretch justify-content-between align-items-center px-4">
-  <span class="text-secondary h3"> {strip.length} / { mode.no_blocks} </span>
+<div class="d-flex align-self-stretch justify-content-between align-items-center px-4 py-4">
+  <span class="text-secondary h5"> {strip.length} / { mode.no_blocks} </span>
   <span on:click={userdetailsToggle} class="text-dark h3"> {user.name.toUpperCase()} </span>
-  <span class="text-secondary h3"> {((time_tracker - start_time)/1000).toFixed(2)} s  </span>
+  <span class="text-secondary h5"> {((time_tracker - start_time)/1000).toFixed(2)} s  </span>
 </div>
 
 
@@ -301,13 +305,16 @@
   </ModalFooter>
 </Modal>
 
+<div style="min-height: 5%;">
 {#if start_time}
-  <Button color="danger" on:click={() => (init())}>Restart</Button>
+  <Button block color="danger" on:click={() => (init())}>Restart</Button>
 {/if}
+</div>
 
 <style>
   wrapper {
     display: flex;
     justify-content: center;
+    min-height: 70%;
   }
 </style>
