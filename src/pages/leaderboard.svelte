@@ -18,7 +18,7 @@
   let current_leaderboard = [];
 
   let load = async() => {
-    let resp = await imx_pub_query("submissions/yamo", ["feedback"], [], "subpath", "*", 10, 0)
+    let resp = await imx_pub_query("submissions/yamo", ["feedback"], [], "subpath", "*", 100, 0)
     records = resp.records;
     records = records.map((record) => (record.attributes))
     let recordsByMode = {};
@@ -59,7 +59,7 @@
 
 {#await promise then data}
 
-<h3> Leaderboard: Mode {mode.name}</h3>
+<h3 class="align-self-center"> Leaderboard </h3>
 <ModesPicker />
 
 <Table hover>

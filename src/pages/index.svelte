@@ -8,7 +8,5 @@
 
 
 <Yamo />
-<br/>
-<ModesPicker class="align-self-center" />
-<br/>
-<Button href="leaderboard" color="primary"> Leaderboard </Button>
+<ModesPicker />
+<Button href="leaderboard" color="info"> Leaderboard </Button>

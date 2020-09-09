@@ -190,7 +190,7 @@
     let resp = await imx_pub_submit("feedback", "yamo", null, attributes);
     if (resp.results[0].status === "success") {
       addNotification({
-        text: 'Submitted New Record!',
+        text: `Submitted New Record (${result} s)!`,
         position: 'bottom-center',
         type: 'success',
         removeAfter: 4000
