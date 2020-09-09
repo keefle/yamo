@@ -6,7 +6,7 @@ let modes = [
  {name: "3x3", cols: 3, rows: 3, no_blocks: 3*3*3, colors: colors, active: true},
  {name: "4x4", cols: 4, rows: 4, no_blocks: 4*4*4, colors: colors, active: true},
  {name: "5x5", cols: 5, rows: 5, no_blocks: 5*5*5, colors: colors, active: true},
- {name: "zen", cols: 3, rows: 3, no_blocks: -1, colors: colors, active: false},
+ {name: "zen", cols: 3, rows: 3, no_blocks: -1, colors: colors, active: true},
 ]
 export const mode_list = modes;
 

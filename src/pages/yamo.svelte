@@ -74,7 +74,12 @@
 
     console.log(tileSize)
 
-    strip  = generate_blocks(mode.no_blocks, mode.colors.length);
+    if (mode.no_blocks === -1) {
+      strip = generate_blocks(mode.cols*mode.rows, mode.colors.length)
+    } else {
+      strip  = generate_blocks(mode.no_blocks, mode.colors.length);
+    }
+
     grid   = shuffle(strip.slice(strip.length - grid_size, strip.length));
   }
 
@@ -217,6 +222,12 @@
     }, 50)
   }
 
+
+  $: { strip = (mode.no_blocks === -1 && strip.length <= mode.rows*mode.cols) ?  generate_blocks(1, mode.colors.length).concat(strip) : strip;
+    console.log(strip);
+  }
+
+
   $: render = ({ context, width, height }) => {
     strip;
     if(!last_select) {
@@ -268,31 +279,6 @@
 <svelte:window bind:innerHeight={innerHeight} bind:innerWidth={innerWidth}/>
 
 
-<div class="d-flex align-self-stretch justify-content-between align-items-center px-4 py-4">
-  <span class="text-secondary h5"> {strip.length} / { mode.no_blocks} </span>
-  <span on:click={userdetailsToggle} class="text-dark h3"> {user.name.toUpperCase()} </span>
-  <span class="text-secondary h5"> {((time_tracker - start_time)/1000).toFixed(2)} s  </span>
-</div>
-
-
-<Modal isOpen={showuserdetails} {userdetailsToggle} {size}>
-  <ModalHeader {userdetailsToggle}> User Details </ModalHeader>
-  <ModalBody>
-    <Settings />
-  </ModalBody>
-  <ModalFooter>
-    <Button on:click={userdetailsToggle} color="primary"> Save </Button>
-    <Button on:click={userdetailsToggle} color="secondary"> Close </Button>
-  </ModalFooter>
-</Modal>
-
-{#if strip.length != 0}
-  <wrapper>
-    <Canvas on:touchstart={handleClick}  on:mousedown={handleClick} width={width} height={height}>
-      <Layer {render} />
-    </Canvas>
-  </wrapper>
-{/if}
 
 <Modal isOpen={result} {toggle} {size}>
   <ModalHeader {toggle}>Kaboomed it</ModalHeader>
@@ -305,10 +291,36 @@
   </ModalFooter>
 </Modal>
 
-<div style="min-height: 5%;">
-{#if start_time}
-  <Button block color="danger" on:click={() => (init())}>Restart</Button>
+<Modal isOpen={showuserdetails} {userdetailsToggle} {size}>
+  <ModalHeader {userdetailsToggle}> User Details </ModalHeader>
+  <ModalBody>
+    <Settings />
+  </ModalBody>
+  <ModalFooter>
+    <Button on:click={userdetailsToggle} color="primary"> Save </Button>
+    <Button on:click={userdetailsToggle} color="secondary"> Close </Button>
+  </ModalFooter>
+</Modal>
+
+<div class="d-flex align-self-stretch justify-content-between align-items-center px-4 py-4">
+  <span class="text-secondary h5"> {strip.length} / { mode.no_blocks === -1 ? "∞": mode.no_blocks} </span>
+  <span on:click={userdetailsToggle} class="text-dark h3"> {user.name.toUpperCase()} </span>
+  <span class="text-secondary h5"> {mode.no_blocks === -1 ? "∞" : ((time_tracker - start_time)/1000).toFixed(2)} s</span>
+</div>
+
+{#if strip.length != 0}
+  <wrapper>
+    <Canvas on:touchstart={handleClick}  on:mousedown={handleClick} width={width} height={height}>
+      <Layer {render} />
+    </Canvas>
+  </wrapper>
 {/if}
+
+
+<div style="min-height: 5%;">
+  {#if start_time}
+    <Button block color="danger" on:click={() => (init())}>Restart</Button>
+  {/if}
 </div>
 
 <style>
