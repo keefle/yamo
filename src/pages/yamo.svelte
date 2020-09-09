@@ -1,19 +1,21 @@
 <script>
-  import { url } from '@roxi/routify'
   import game_mode from "../stores/gameconfig.js";
+  import {color} from "../stores/gameconfig.js";
   import user_detail from "../stores/user.js";
-  import {Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'sveltestrap';
+
+  import { url } from '@roxi/routify'
+  import {Card, CardText, CardBody, Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'sveltestrap';
   import Settings from "../components/settings.svelte";
-
-  import { getNotificationsContext } from 'svelte-notifications';
-  const { addNotification } = getNotificationsContext();
-
   import { onMount } from "svelte";
   import { imx_pub_submit } from "../api.js";
   import { Canvas, Layer, t} from "svelte-canvas";
 
   let mode;
   let user;
+  let colorscheme;
+
+  user_detail.subscribe((userdetail) => (user = userdetail));
+  color.subscribe((current_color) => (colorscheme = current_color.val));
 
   let innerWidth;
   let innerHeight;
@@ -73,9 +75,9 @@
     height = tileSize * mode.cols + tileSize * mode.cols * 0.4
 
     if (mode.no_blocks === -1) {
-      strip = generate_blocks(mode.cols*mode.rows, mode.colors.length)
+      strip = generate_blocks(mode.cols*mode.rows, colorscheme.length)
     } else {
-      strip  = generate_blocks(mode.no_blocks, mode.colors.length);
+      strip  = generate_blocks(mode.no_blocks, colorscheme.length);
     }
 
     grid   = shuffle(strip.slice(strip.length - grid_size, strip.length));
@@ -87,10 +89,11 @@
       init();
     });
 
-  user_detail.subscribe((userdetail) => (user = userdetail));
   onMount(() => {
     init();
   })
+
+
 
   function shuffle(array) {
     let counter = array.length;
@@ -112,22 +115,22 @@
     let blocks = [];
 
     for (let i = 0; i < no_blocks; i++) {
-      let color = Math.floor(Math.random() * Math.floor(no_colors-1));
-      blocks.push(color);
+      let colorit = Math.floor(Math.random() * Math.floor(no_colors-1));
+      blocks.push(colorit);
     }
 
     return blocks;
   }
 
   function draw_block(context, x, y, width, height, color) {
-    context.fillStyle = mode.colors[color];
+    context.fillStyle = colorscheme[color];
     context.fillRect(x, y, width, height);
     context.strokeStyle = "black"
     context.strokeRect(x, y, width, height);
   }
 
   function draw_stroke(context, x, y, width, height, color) {
-    context.fillStyle = mode.colors[color];
+    context.fillStyle = colorscheme[color];
     context.fillRect(x, y, width, height);
     context.strokeStyle = "black"
     context.strokeRect(x, y, width, height);
@@ -195,14 +198,7 @@
 
 
     let resp = await imx_pub_submit("feedback", "yamo", null, attributes);
-    if (resp.results[0].status === "success") {
-      addNotification({
-        text: `Submitted New Record (${result} s)!`,
-        position: 'bottom-center',
-        type: 'success',
-        removeAfter: 4000
-      })
-    } else {
+    if (resp.results[0].status !== "success") {
       addNotification({
         text: 'Failed to submit new record...',
         position: 'bottom-center',
@@ -221,7 +217,8 @@
   }
 
 
-  $: { strip = (mode.no_blocks === -1 && strip.length <= mode.rows*mode.cols) ?  generate_blocks(1, mode.colors.length).concat(strip) : strip; }
+  $: { strip = (mode.no_blocks === -1 && strip.length <= mode.rows*mode.cols) ?
+    generate_blocks(1, colorscheme.length).concat(strip) : strip; }
 
 
   $: render = ({ context, width, height }) => {
@@ -289,13 +286,7 @@
 
 <Modal isOpen={showuserdetails} {userdetailsToggle} {size}>
   <ModalHeader {userdetailsToggle}> User Details </ModalHeader>
-  <ModalBody>
-    <Settings />
-  </ModalBody>
-  <ModalFooter>
-    <Button on:click={userdetailsToggle} color="primary"> Save </Button>
-    <Button on:click={userdetailsToggle} color="secondary"> Close </Button>
-  </ModalFooter>
+  <Settings onSave={userdetailsToggle}/>
 </Modal>
 
 <div class="d-flex align-self-stretch justify-content-between align-items-center px-4 py-4">
@@ -304,20 +295,15 @@
   <span class="text-secondary h5"> {mode.no_blocks === -1 ? "∞" : ((time_tracker - start_time)/1000).toFixed(2)} s</span>
 </div>
 
-{#if strip.length != 0}
-  <wrapper>
+<wrapper>
+  {#if strip.length != 0}
     <Canvas on:touchstart={handleClick}  on:mousedown={handleClick} width={width} height={height}>
       <Layer {render} />
     </Canvas>
-  </wrapper>
-{/if}
-
-
-<div style="min-height: 5%;">
-  {#if start_time}
-    <Button block color="danger" on:click={() => (init())}>Restart</Button>
   {/if}
-</div>
+</wrapper>
+
+
 
 <style>
   wrapper {

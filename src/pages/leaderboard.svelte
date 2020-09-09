@@ -60,7 +60,7 @@
 
 {#await promise then data}
 
-<div class="justify-content-center flex-column d-flex h-100 w-100" in:fade="{{ duration: 1000 }}">
+<div class="justify-content-center flex-column d-flex h-100 w-100" in:fade="{{ duration: 500 }}">
 
 <h3 class="pb-4 align-self-center"> Leaderboard </h3>
 
