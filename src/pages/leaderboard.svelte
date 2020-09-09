@@ -41,9 +41,12 @@
       for (var username of Object.keys(userRecords)) {
         recordsByMode[mode].push(userRecords[username]);
       }
-    })
+      recordsByMode[mode].sort(
+        function(a, b) {
+          return a.result - b.result;
+        })
 
-    console.log(recordsByMode);
+    })
 
     leaderboard = recordsByMode;
     current_leaderboard = leaderboard[mode.name];
