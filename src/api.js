@@ -72,3 +72,11 @@ async function imx_fetch(url, request) {
     let decoded = td.decode(data);
     return JSON.parse(decoded);
 }
+
+
+export async function fetch_country_code() {
+    let request = {mode: "cors", referrerPolicy: 'no-referrer'}
+    let resp = await fetch("https://get.geojs.io/v1/ip/country.json");
+    let data = await resp.json();
+    return data.country
+}

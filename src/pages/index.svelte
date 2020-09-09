@@ -1,7 +1,14 @@
 <script>
-    import { Container, Row, Button } from 'sveltestrap';
-    import { url } from '@roxi/routify'
+  import Yamo from './yamo.svelte';
+  import ModesPicker from '../components/modes-picker.svelte';
+  import { Button } from 'sveltestrap';
+  import { url } from '@roxi/routify'
 </script>
 
-<h3 class="text-center">Kaboom the Kabaam!</h3>
-<Button href="start" color="primary"> Play </Button>
+
+
+<Yamo />
+<br/>
+<ModesPicker class="align-self-center" />
+<br/>
+<Button href="leaderboard" color="primary"> Leaderboard </Button>

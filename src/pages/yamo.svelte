@@ -3,6 +3,7 @@
   import game_mode from "../stores/gameconfig.js";
   import user_detail from "../stores/user.js";
   import {Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'sveltestrap';
+  import Settings from "../components/settings.svelte";
 
   import { getNotificationsContext } from 'svelte-notifications';
   const { addNotification } = getNotificationsContext();
@@ -58,12 +59,13 @@
     grid_size = mode.cols * mode.rows;
     last_select = true;
     time_tracker = 0;
+    clearInterval(time_interval_id);
 
 
     if (Math.ceil(innerHeight/innerWidth) == 2) {
       tileSize = Math.min(innerHeight, innerWidth)/(0.5+mode.cols)
     } else {
-      tileSize = Math.min(innerHeight, innerWidth)/(2+mode.cols)
+      tileSize = Math.min(innerHeight, innerWidth)/(3+mode.cols)
     }
     width  = 10 + tileSize * mode.cols
     height = tileSize * mode.rows + tileSize
@@ -172,25 +174,32 @@
       clearInterval(time_interval_id);
       let date = new Date(time_interval_id-start_time);
       result = ((time_tracker - start_time)/1000).toFixed(2);
-      upload_score(user.name, user.country, result);
+      upload_score(user.name, user.country, result, mode.name);
     }
   }
 
-  async function upload_score(username, country, result) {
+  async function upload_score(username, country, result, modename) {
     let attributes = {
       username: username,
       country: country,
+      modename: modename,
       result: result
     };
 
 
     let resp = await imx_pub_submit("feedback", "yamo", null, attributes);
     if (resp.results[0].status === "success") {
-
       addNotification({
         text: 'Submitted New Record!',
         position: 'bottom-center',
         type: 'success',
+        removeAfter: 4000
+      })
+    } else {
+      addNotification({
+        text: 'Failed to submit new record...',
+        position: 'bottom-center',
+        type: 'error',
         removeAfter: 4000
       })
     }
@@ -246,17 +255,32 @@
     check_status();
   }
 
-  //
+
+  let showuserdetails = user.name === "";
+  let userdetailsToggle = () => (showuserdetails = !showuserdetails)
 </script>
 
 
 <svelte:window bind:innerHeight={innerHeight} bind:innerWidth={innerWidth}/>
 
 
-<div class="d-flex justify-content-between align-items-center px-4">
-  <div class="text-secondary h4"> Elapsed Time: {((time_tracker - start_time)/1000).toFixed(2)} s  </div>
-  <div class="text-secondary h4"> Remianing: {strip.length} / { mode.no_blocks} </div>
+<div class="d-flex align-self-stretch justify-content-between align-items-center px-4">
+  <span class="text-secondary h3"> {strip.length} / { mode.no_blocks} </span>
+  <span on:click={userdetailsToggle} class="text-dark h3"> {user.name.toUpperCase()} </span>
+  <span class="text-secondary h3"> {((time_tracker - start_time)/1000).toFixed(2)} s  </span>
 </div>
+
+
+<Modal isOpen={showuserdetails} {userdetailsToggle} {size}>
+  <ModalHeader {userdetailsToggle}> User Details </ModalHeader>
+  <ModalBody>
+    <Settings />
+  </ModalBody>
+  <ModalFooter>
+    <Button on:click={userdetailsToggle} color="primary"> Save </Button>
+    <Button on:click={userdetailsToggle} color="secondary"> Close </Button>
+  </ModalFooter>
+</Modal>
 
 {#if strip.length != 0}
   <wrapper>
@@ -277,10 +301,13 @@
   </ModalFooter>
 </Modal>
 
+{#if start_time}
+  <Button color="danger" on:click={() => (init())}>Restart</Button>
+{/if}
 
 <style>
   wrapper {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
   }
 </style>
