@@ -59,11 +59,11 @@
   }
 
   let setCountryCode = async() => {
-    if (country !== "") {
+    if (country) {
       return;
     }
 
-    country = await fetch_country_code();
+    country = countries[await fetch_country_code()];
   }
 
   let promise = setCountryCode();
@@ -87,8 +87,8 @@
 <InputGroupText>Country</InputGroupText>
 </InputGroupAddon>
 <Input bind:value={country} type="select" name="select" id="exampleSelect">
-{#each Object.keys(countries) as country}
-  <option value={country}>{countries[country]}</option>
+{#each Object.keys(countries) as country_code}
+  <option value={countries[country_code]}>{countries[country_code]}</option>
 {/each}
   </Input>
   </InputGroup>
