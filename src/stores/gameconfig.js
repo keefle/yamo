@@ -17,7 +17,6 @@ colorchoice.subscribe(val => localStorage.setItem("colorchoice", JSON.stringify(
 
 let modes = [
     {name: "3x3", cols: 3, rows: 3, no_blocks: 3*3*4, active: true},
-    {name: "1x1", cols: 3, rows: 3, no_blocks: 1*1*1, active: true},
     {name: "4x4", cols: 4, rows: 4, no_blocks: 4*4*4, active: true},
     {name: "5x5", cols: 5, rows: 5, no_blocks: 5*5*4, active: true},
     {name: "zen", cols: 3, rows: 3, no_blocks: -1,    active: true},
