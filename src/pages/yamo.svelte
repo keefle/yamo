@@ -60,8 +60,8 @@
     clearInterval(time_interval_id);
 
 
-    width  = innerWidth * 0.7;// 10 + tileSize * mode.cols
-    height = innerHeight * 0.7;// tileSize * mode.rows + tileSize
+    width  = innerWidth  * 0.6;// 10 + tileSize * mode.cols
+    height = innerHeight * 0.6;// tileSize * mode.rows + tileSize
 
     if (Math.ceil(innerHeight/innerWidth) == 2) {
       tileSize = height/(mode.cols+mode.cols*0.4)
@@ -71,8 +71,6 @@
 
     width = tileSize * mode.cols + 10
     height = tileSize * mode.cols + tileSize * mode.cols * 0.4
-
-    console.log(tileSize)
 
     if (mode.no_blocks === -1) {
       strip = generate_blocks(mode.cols*mode.rows, mode.colors.length)
@@ -223,9 +221,7 @@
   }
 
 
-  $: { strip = (mode.no_blocks === -1 && strip.length <= mode.rows*mode.cols) ?  generate_blocks(1, mode.colors.length).concat(strip) : strip;
-    console.log(strip);
-  }
+  $: { strip = (mode.no_blocks === -1 && strip.length <= mode.rows*mode.cols) ?  generate_blocks(1, mode.colors.length).concat(strip) : strip; }
 
 
   $: render = ({ context, width, height }) => {

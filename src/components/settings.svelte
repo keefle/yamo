@@ -62,8 +62,13 @@
     if (country) {
       return;
     }
+    console.log("lets try")
 
-    country = countries[await fetch_country_code()];
+    fetch_country_code().then(resp => country = countries[resp]).catch(e => country = countries[0]);
+    // if (cr) {
+    //   country = countries[cr];
+    // }
+    console.log("survive dis?")
   }
 
   let promise = setCountryCode();

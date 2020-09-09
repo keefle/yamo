@@ -4,6 +4,7 @@
   import ModesPicker from '../components/modes-picker.svelte';
   import game_mode from "../stores/gameconfig.js";
   import { mode_list } from "../stores/gameconfig.js";
+  import { fade } from 'svelte/transition';
 
   let mode;
 
@@ -59,6 +60,7 @@
 
 {#await promise then data}
 
+<div class="justify-content-center flex-column d-flex h-100 w-100" in:fade="{{ duration: 1000 }}">
 <h3 style="height: 10%;" class="pt-4 align-self-center"> Leaderboard </h3>
 <ModesPicker />
 
@@ -86,4 +88,5 @@
 </div>
 
 <Button class="pb-2" href="/" color="primary"> Back to game </Button>
+</div>
 {/await}
