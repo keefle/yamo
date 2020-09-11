@@ -264,7 +264,7 @@
   }
 
 
-  let showuserdetails = user.name === "";
+  let showuserdetails = user.name === "anon";
   let userdetailsToggle = () => (showuserdetails = !showuserdetails)
 </script>
 

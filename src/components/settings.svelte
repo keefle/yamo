@@ -7,6 +7,7 @@
     ModalFooter,
     ModalBody,
     Container,
+    Label,
     Button
   } from 'sveltestrap';
 
@@ -87,6 +88,9 @@
 {#await promise then data}
 
   <ModalBody>
+    {#if $user.name === "anon"}
+    <Label> Choose a user name </Label>
+    {/if}
     <InputGroup>
     <InputGroupAddon addonType="prepend">
     <InputGroupText>@</InputGroupText>
