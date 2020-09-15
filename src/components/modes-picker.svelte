@@ -1,20 +1,20 @@
 <script>
   import {
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Input,
-    Button,
-    ButtonGroup,
-    Container
-  } from 'sveltestrap';
+  	InputGroupAddon,
+  	InputGroupText,
+  	InputGroup,
+  	Input,
+  	Button,
+  	ButtonGroup,
+  	Container
+  } from "sveltestrap";
 
-  import { mode_list } from '../stores/gameconfig.js';
-  import gamemode from '../stores/gameconfig.js';
+  import { mode_list } from "../stores/gameconfig.js";
+  import gamemode from "../stores/gameconfig.js";
 
-  let selected_mode = mode_list[0];
+  let selected_mode = $gamemode;
 
-  $: { gamemode.update((old) => (selected_mode)) }
+  $: { gamemode.update((old) => (selected_mode)); }
 </script>
 
 

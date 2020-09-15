@@ -1,17 +1,16 @@
 <script>
-  import Notifications from 'svelte-notifications';
-
-  import { Navbar, NavbarToggler,NavbarBrand, Collapse, Modal, ModalBody, ModalFooter, ModalHeader, Button, Nav, NavItem, NavLink, Container, Row } from 'sveltestrap';
-
-
-  let size;
-  let isOpen = false;
-  const toggle = () => (isOpen = !isOpen);
+  import Notifications from "svelte-notifications";
+  import { Container } from "sveltestrap";
 </script>
 
+<style>
+  :global(.makespace) {
+    margin-bottom: 20px;
+  }
+</style>
 
 <svelte:head>
-  <link rel="stylesheet" href="/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap.min.css" />
 </svelte:head>
 
 <Notifications>
@@ -21,8 +20,3 @@
     </Container>
   </div>
 </Notifications>
-<style>
-  :global(.makespace) {
-  margin-bottom: 20px;
-  }
-</style>
