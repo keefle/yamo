@@ -23,7 +23,7 @@
       [],
       "subpath",
       "*",
-      100,
+      500,
       0
     );
     records = resp.records;
@@ -61,27 +61,26 @@
 
   let promise = load();
 
-  $: {
-    current_leaderboard = leaderboard[mode.name];
-  }
+  $: { current_leaderboard = leaderboard[mode.name]; }
+
 </script>
 
-  <div class="justify-content-center flex-column d-flex h-100 w-100">
-    <h3 class="mt-4 mb-auto align-self-center">Leaderboard</h3>
+<div class="justify-content-center flex-column d-flex h-100 w-100">
+  <h3 class="mt-4 mb-auto align-self-center">Leaderboard</h3>
 
-    <ModesPicker />
+  <ModesPicker />
 
-    <div style="min-height: 70%;">
-      <Table hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>Country</th>
-            <th>Record (seconds)</th>
-          </tr>
-        </thead>
-        <tbody>
+  <div style="min-height: 70%;">
+    <Table hover>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Country</th>
+          <th>Record (seconds)</th>
+        </tr>
+      </thead>
+      <tbody>
         {#if !loading}
           {#each current_leaderboard as record, index}
             <tr>
@@ -91,16 +90,16 @@
               <td>{record.result}</td>
             </tr>
           {/each}
-          {/if}
-        </tbody>
-      </Table>
-      {#if loading}
+        {/if}
+      </tbody>
+    </Table>
+    {#if loading}
       <div class="d-flex justify-content-center">
         <Spinner color="info" />
-</div>
+      </div>
 
-      {/if}
-    </div>
-
-    <Button class="mt-auto mb-2" href="/" color="primary">Back to game</Button>
+    {/if}
   </div>
+
+  <Button class="mt-auto mb-2" href="/" color="primary">Back to game</Button>
+</div>

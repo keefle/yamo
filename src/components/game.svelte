@@ -3,7 +3,7 @@
   import { color } from "../stores/gameconfig.js";
   import game_mode from "../stores/gameconfig.js";
   import game_status from "../stores/gamestatus.js";
-import user from "../stores/user.js";
+  import user from "../stores/user.js";
 
   function new_block(color, disabled) {
     if (color < 0) {
@@ -94,7 +94,7 @@ import user from "../stores/user.js";
 
   function wrongChoice(index) {
     flash = "red";
-    setTimeout(() => (flash = "white"), 100);
+    setTimeout(() => (flash = "white"), 250);
   }
 
   function handleClick(index) {
@@ -106,7 +106,7 @@ import user from "../stores/user.js";
         game_status.setRunning();
       }
 
-      if (grid[index].color === strip[strip.length - 1].color) {
+      if (flash == "white" && grid[index].color === strip[strip.length - 1].color) {
         correctChoice(index, index);
         return;
       }
@@ -167,26 +167,26 @@ import user from "../stores/user.js";
 </style>
 
 <main
-  style="display: flex; align-self: center; justify-content: center; flex-direction: column; --cols: {cols}; --rows: {rows}; --width: {innerHeight > innerWidth ? '90vw' : '70vh'};">
-  {#if no_blocks !== 0}
-    <board
-      style="border: solid; border-color: {flash}; padding: 5px; border-width: 5px; border-radius: 5px;">
-      {#each grid as block, index}
-        <button
-          class="block"
-          disabled={block.disabled}
-          on:touchstart={handleClick(index, block.color)}
-          on:mousedown={handleClick(index, block.color)}
-          style="background-color: {block.color};" />
-      {/each}
-    </board>
+style="display: flex; align-self: center; justify-content: center; flex-direction: column; --cols: {cols}; --rows: {rows}; --width: {innerHeight > innerWidth ? '90vw' : '70vh'};">
+{#if no_blocks !== 0}
+  <board
+    style="border: solid; border-color: {flash}; padding: 5px; border-width: 5px; border-radius: 5px;">
+    {#each grid as block, index}
+      <button
+        class="block"
+        disabled={block.disabled}
+        on:touchstart={handleClick(index, block.color)}
+        on:mousedown={handleClick(index, block.color)}
+        style="background-color: {block.color};" />
+    {/each}
+  </board>
 
-    <strip>
-      {#each strip.slice(Math.max(strip.length - 9, 0), strip.length) as block}
-        <button class="block" style="background-color: {block.color};" />
-      {/each}
-    </strip>
-  {/if}
-</main>
+  <strip>
+    {#each strip.slice(Math.max(strip.length - 9, 0), strip.length) as block}
+      <button class="block" style="background-color: {block.color};" />
+    {/each}
+  </strip>
+{/if}
+  </main>
 
-<svelte:window bind:innerHeight bind:innerWidth />
+  <svelte:window bind:innerHeight bind:innerWidth />
