@@ -40,7 +40,10 @@
       let leaderboard = recordsByMode[mode];
       let userRecords = {};
       for (let i = 0; i < leaderboard.length; i++) {
-        if ( userRecords[leaderboard[i].username] == null || leaderboard[i].result <= userRecords[leaderboard[i].username].result) {
+        if (
+          userRecords[leaderboard[i].username] == null ||
+          leaderboard[i].result <= userRecords[leaderboard[i].username].result
+        ) {
           userRecords[leaderboard[i].username] = leaderboard[i];
         }
       }
@@ -61,8 +64,9 @@
 
   let promise = load();
 
-  $: { current_leaderboard = leaderboard[mode.name]; }
-
+  $: {
+    current_leaderboard = leaderboard[mode.name];
+  }
 </script>
 
 <div class="justify-content-center flex-column d-flex h-100 w-100">
@@ -70,7 +74,7 @@
 
   <ModesPicker />
 
-  <div style="min-height: 70%;">
+  <div style="min-height: 70%; max-height: 70%; overflow: auto;">
     <Table hover>
       <thead>
         <tr>
@@ -97,7 +101,6 @@
       <div class="d-flex justify-content-center">
         <Spinner color="info" />
       </div>
-
     {/if}
   </div>
 

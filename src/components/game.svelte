@@ -34,7 +34,11 @@
   });
 
   $: game_status.update((gstatus) => {
-    gstatus.duration = end_time - start_time;
+    if (end_time - start_time < 0) {
+      gstatus.duration = 0;
+    } else {
+      gstatus.duration = end_time - start_time;
+    }
     return gstatus;
   });
 
@@ -87,26 +91,34 @@
     if (no_blocks === 0) {
       clearInterval(time_interval_id);
       game_status.setDone();
-      upload_score($user.name, $user.country, ($game_status.duration/1000).toFixed(2), $game_mode.name);
-
+      upload_score(
+        $user.name,
+        $user.country,
+        ($game_status.duration / 1000).toFixed(2),
+        $game_mode.name
+      );
     }
   }
 
   function wrongChoice(index) {
     flash = "red";
-    setTimeout(() => (flash = "white"), 250);
+    setTimeout(() => (flash = "white"), 50);
+    window.navigator.vibrate(50);
   }
 
   function handleClick(index) {
     return (clickEvent) => {
       clickEvent.preventDefault();
       if (!start_time) {
-        setTimeout(() => (start_time = Date.now()), 10);
-        time_interval_id = setInterval(() => (end_time = Date.now()), 10);
+        start_time = Date.now();
+        time_interval_id = setInterval(() => (end_time = Date.now()), 0);
         game_status.setRunning();
       }
 
-      if (flash == "white" && grid[index].color === strip[strip.length - 1].color) {
+      if (
+        flash == "white" &&
+        grid[index].color === strip[strip.length - 1].color
+      ) {
         correctChoice(index, index);
         return;
       }
@@ -124,6 +136,19 @@
     height: var(--width);
     width: var(--width);
     margin-bottom: 5%;
+  }
+
+  .glowing {
+    animation: pulse-animation 2s infinite !important;
+  }
+
+  @keyframes pulse-animation {
+    50% {
+      transform: scale(0.5);
+    }
+    90% {
+      transform: scale(1);
+    }
   }
 
   @keyframes blockEntrance {
@@ -167,26 +192,28 @@
 </style>
 
 <main
-style="display: flex; align-self: center; justify-content: center; flex-direction: column; --cols: {cols}; --rows: {rows}; --width: {innerHeight > innerWidth ? '90vw' : '70vh'};">
-{#if no_blocks !== 0}
-  <board
-    style="border: solid; border-color: {flash}; padding: 5px; border-width: 5px; border-radius: 5px;">
-    {#each grid as block, index}
-      <button
-        class="block"
-        disabled={block.disabled}
-        on:touchstart={handleClick(index, block.color)}
-        on:mousedown={handleClick(index, block.color)}
-        style="background-color: {block.color};" />
-    {/each}
-  </board>
+  style="display: flex; align-self: center; justify-content: center; flex-direction: column; --cols: {cols}; --rows: {rows}; --width: {innerHeight > innerWidth ? '90vw' : '70vh'};">
+  {#if no_blocks !== 0}
+    <board
+      style="border: solid; border-color: {flash}; padding: 5px; border-width: 5px; border-radius: 5px;">
+      {#each grid as block, index}
+        <button
+          class={!start_time && block.color === strip[strip.length - 1].color ? 'block glowing' : 'block'}
+          disabled={block.disabled}
+          on:touchstart={handleClick(index, block.color)}
+          on:mousedown={handleClick(index, block.color)}
+          style="background-color: {block.color};" />
+      {/each}
+    </board>
 
-  <strip>
-    {#each strip.slice(Math.max(strip.length - 9, 0), strip.length) as block}
-      <button class="block" style="background-color: {block.color};" />
-    {/each}
-  </strip>
-{/if}
-  </main>
+    <strip>
+      {#each strip.slice(Math.max(strip.length - 9, 0), strip.length) as block, index}
+        <button
+          class="block {!start_time && index === 8 ? 'glowing' : ''}"
+          style="background-color: {block.color};" />
+      {/each}
+    </strip>
+  {/if}
+</main>
 
-  <svelte:window bind:innerHeight bind:innerWidth />
+<svelte:window bind:innerHeight bind:innerWidth />
