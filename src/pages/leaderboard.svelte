@@ -105,7 +105,7 @@
   </div>
   <container
     class="w-100 mt-auto mb-2 d-flex flex-column justify-content-center">
-    <ButtonGroup vertical>
+    <ButtonGroup>
       <Button href="play" color="primary">Play</Button>
       <Button href="/" color="secondary">Main Page</Button>
     </ButtonGroup>

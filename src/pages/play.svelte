@@ -12,6 +12,7 @@
 </script>
 
 <div class="w-100 h-100 d-flex flex-column justify-content-center">
+
   <div class="w-75 align-self-center mt-4 mb-auto">
     <GameInfo />
   </div>
@@ -26,12 +27,15 @@
 
   <div class="d-flex flex-column pb-2 mt-auto">
     <ButtonGroup vertical>
-      <Button
-        disabled={$game_status.state === 'READY'}
-        color="danger"
-        on:click={() => gameconfig.update((mode) => mode)}>
-        Restart
-      </Button>
+      <ButtonGroup class="align-self-end">
+        <Button href="settings"> Settings </Button>
+        <Button
+          disabled={$game_status.state === 'READY'}
+          color="danger"
+          on:click={() => gameconfig.update((mode) => mode)}>
+          Restart
+        </Button>
+      </ButtonGroup>
       <ModesPicker />
       <Button href="leaderboard" color="info">Leaderboard</Button>
     </ButtonGroup>

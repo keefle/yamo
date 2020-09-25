@@ -20,6 +20,6 @@
 
 <ButtonGroup>
   {#each colors as color}
-    <Button active={color.name === selected_color.name} on:click={() => (selected_color = color)}> {color.name} </Button>
+    <Button color="light" active={color.name === selected_color.name} on:click={() => (selected_color = color)}> {color.name} </Button>
   {/each}
 </ButtonGroup>

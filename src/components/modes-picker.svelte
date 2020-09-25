@@ -22,7 +22,7 @@
 
 <ButtonGroup>
   {#each mode_list as mode}
-    <Button disabled={!mode.active} active={mode.name === selected_mode.name} on:click={() => (selected_mode = mode)}> {mode.name} </Button>
+    <Button color="light" disabled={!mode.active} active={mode.name === selected_mode.name} on:click={() => (selected_mode = mode)}> {mode.name} </Button>
   {/each}
 </ButtonGroup>
 

@@ -4,17 +4,7 @@
   import user from "../stores/user.js";
   import Settings from "../components/settings.svelte";
 
-  import {Modal, ModalHeader} from "sveltestrap";
-
-  let size;
-  let showuserdetails = false; // $user.name === "anon";
-  let userdetailsToggle = () => (showuserdetails = !showuserdetails);
 </script>
-
-<Modal isOpen={showuserdetails} {userdetailsToggle} {size}>
-  <ModalHeader {userdetailsToggle}> User Details </ModalHeader>
-  <Settings onSave={userdetailsToggle}/>
-</Modal>
 
 <div class="d-flex align-self-stretch justify-content-between align-items-center">
   <span class="text-secondary h5"> {$game_config.no_blocks !== -1 ?  $game_status.blocks_remaining : "∞" } / {$game_config.no_blocks === -1 ? "∞": $game_config.no_blocks} </span>
@@ -22,5 +12,5 @@
 </div>
 
 <div class="d-flex align-self-stretch justify-content-center align-items-center">
-  <span on:click={userdetailsToggle} class="text-dark h3"> {$user.name.toUpperCase()} </span>
+  <span class="text-dark h3"> {$user.name.toUpperCase()} </span>
 </div>
