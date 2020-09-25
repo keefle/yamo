@@ -7,7 +7,7 @@
 
   function new_block(color, disabled) {
     if (color < 0) {
-      color = "white";
+      color = "var(--bg)";
     } else {
       color = colors[color];
     }
@@ -21,7 +21,7 @@
   let no_blocks = $game_mode.no_blocks;
   let time_interval_id;
 
-  let flash = "white";
+  let flash = false;
   let grid = Array(grid_size);
   let strip = Array(grid_size);
 
@@ -49,7 +49,7 @@
     rows = $game_mode.rows;
     grid_size = cols * rows;
     no_blocks = $game_mode.no_blocks;
-    flash = "white";
+    flash = false;
     grid = Array(grid_size);
     strip = Array(grid_size);
     start_time = null;
@@ -101,8 +101,8 @@
   }
 
   function wrongChoice(index) {
-    flash = "red";
-    setTimeout(() => (flash = "white"), 50);
+    flash = true;
+    setTimeout(() => (flash = false), 50);
     window.navigator.vibrate(50);
   }
 
@@ -115,16 +115,33 @@
         game_status.setRunning();
       }
 
-      if (
-        flash == "white" &&
-        grid[index].color === strip[strip.length - 1].color
-      ) {
+      if (!flash && grid[index].color === strip[strip.length - 1].color) {
         correctChoice(index, index);
         return;
       }
 
       wrongChoice(index);
     };
+  }
+
+  function getCurrentClass(blockColor) {
+    if (!start_time) {
+      if (blockColor === strip[strip.length - 1].color) {
+        return "block enter glowing";
+      } else {
+        return "block enter ";
+      }
+    } else {
+      return "block";
+    }
+  }
+
+  function getFlash() {
+    if (flash) {
+      return "red";
+    }
+
+    return "var(--bg)";
   }
 </script>
 
@@ -164,12 +181,15 @@
     }
   }
 
-  .block {
+  .enter {
     animation: blockEntrance 700ms ease-out;
+  }
+
+  .block {
+    transition: all 200ms ease-in-out;
     border: none;
     outline: none !important;
     border-radius: 5px;
-    transition: all 200ms ease-in-out;
   }
 
   .block:hover {
@@ -192,13 +212,13 @@
 </style>
 
 <main
-  style="display: flex; align-self: center; justify-content: center; flex-direction: column; --cols: {cols}; --rows: {rows}; --width: {innerHeight > innerWidth ? '90vw' : '70vh'};">
+  style="display: flex; align-self: center; justify-content: center; flex-direction: column; --cols: {cols}; --rows: {rows}; --width: {innerHeight > innerWidth ? '90vw' : '50vh'};">
   {#if no_blocks !== 0}
     <board
-      style="border: solid; border-color: {flash}; padding: 5px; border-width: 5px; border-radius: 5px;">
+      style="border: solid; border-color: {getFlash()}; padding: 5px; border-width: 5px; border-radius: 5px;">
       {#each grid as block, index}
         <button
-          class={!start_time && block.color === strip[strip.length - 1].color ? 'block glowing' : 'block'}
+          class={getCurrentClass(block.color)}
           disabled={block.disabled}
           on:touchstart={handleClick(index, block.color)}
           on:mousedown={handleClick(index, block.color)}

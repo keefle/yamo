@@ -4,7 +4,7 @@
   "name": "Yamo man",
   "short_name": "Yamo",
   "start_url": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "icons": [
     {
       "src": "/images/touch-icons/logo-192.png",

@@ -4,9 +4,6 @@
 </script>
 
 <style>
-  :global(.makespace) {
-    margin-bottom: 20px;
-  }
 </style>
 
 <svelte:head>
@@ -14,7 +11,7 @@
 </svelte:head>
 
 <Notifications>
-  <div class="w-100 h-100 user-select-none">
+  <div class="w-100 h-100 pt-4 pb-4 user-select-none">
     <Container class="w-100 h-100 d-flex justify-content-center flex-column">
       <slot />
     </Container>
