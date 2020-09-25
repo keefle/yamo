@@ -1,6 +1,6 @@
 <script>
   import { imx_pub_query } from "./../api.js";
-  import { Spinner, Button, Table } from "sveltestrap";
+  import { Spinner, Button, Table, ButtonGroup } from "sveltestrap";
   import ModesPicker from "../components/modes-picker.svelte";
   import game_mode from "../stores/gameconfig.js";
   import { mode_list } from "../stores/gameconfig.js";
@@ -103,6 +103,11 @@
       </div>
     {/if}
   </div>
-
-  <Button class="mt-auto mb-2" href="/" color="primary">Back to game</Button>
+  <container
+    class="w-100 mt-auto mb-2 d-flex flex-column justify-content-center">
+    <ButtonGroup vertical>
+      <Button href="play" color="primary">Play</Button>
+      <Button href="/" color="secondary">Main Page</Button>
+    </ButtonGroup>
+  </container>
 </div>
