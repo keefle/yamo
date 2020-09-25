@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="135.46667mm"
+   height="135.46671mm"
+   viewBox="0 0 135.46667 135.46671"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="/home/mk/bitmap.png"
+   inkscape:export-xdpi="102.511"
+   inkscape:export-ydpi="102.511"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="yamo.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.68612481"
+     inkscape:cx="203.61481"
+     inkscape:cy="88.182427"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1454"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-41.218903,-65.658386)">
+    <rect
+       inkscape:export-filename="/home/mk/yamo-app.png"
+       style="fill:#ff2a2a;stroke:none;stroke-width:9.76784;stroke-linecap:round;paint-order:stroke markers fill"
+       id="rect833"
+       width="135.46666"
+       height="135.46666"
+       x="41.218903"
+       y="65.658386"
+       inkscape:export-xdpi="95.999969"
+       inkscape:export-ydpi="95.999969" />
+    <rect
+       inkscape:export-filename="/home/mk/yamo-app.png"
+       style="fill:#5555ff;stroke:none;stroke-width:8.93508;stroke-linecap:round;paint-order:stroke markers fill"
+       id="rect835"
+       width="112.88889"
+       height="112.88889"
+       x="63.79668"
+       y="88.236206"
+       inkscape:export-xdpi="95.999969"
+       inkscape:export-ydpi="95.999969" />
+    <rect
+       inkscape:export-filename="/home/mk/yamo-app.png"
+       style="fill:#ffdd55;stroke:none;stroke-width:10.0314;stroke-linecap:round;paint-order:stroke markers fill"
+       id="rect837"
+       width="90.311134"
+       height="90.311134"
+       x="63.79668"
+       y="88.236206"
+       inkscape:export-xdpi="95.999969"
+       inkscape:export-ydpi="95.999969" />
+  </g>
+</svg>
