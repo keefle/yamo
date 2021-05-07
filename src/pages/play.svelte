@@ -26,16 +26,17 @@
   </div>
 
   <div class="d-flex flex-column pb-2 mt-auto">
+    <ButtonGroup>
+      <Button color="secondary" href="settings"> Settings </Button>
+      <Button
+        disabled={$game_status.state === 'READY'}
+        color="danger"
+        on:click={() => gameconfig.update((mode) => mode)}>
+        Restart
+      </Button>
+    </ButtonGroup>
+    <br />
     <ButtonGroup vertical>
-      <ButtonGroup class="align-self-end">
-        <Button href="settings"> Settings </Button>
-        <Button
-          disabled={$game_status.state === 'READY'}
-          color="danger"
-          on:click={() => gameconfig.update((mode) => mode)}>
-          Restart
-        </Button>
-      </ButtonGroup>
       <ModesPicker />
       <Button href="leaderboard" color="info">Leaderboard</Button>
     </ButtonGroup>
