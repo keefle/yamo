@@ -62,7 +62,7 @@
     current_leaderboard = leaderboard[mode.name];
   };
 
-  let promise = load();
+  // let promise = load();
 
   $: {
     current_leaderboard = leaderboard[mode.name];
@@ -75,39 +75,6 @@
   <ModesPicker />
 
   <div style="min-height: 70%; max-height: 70%; overflow: auto;">
-    <Table hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Username</th>
-          <th>Country</th>
-          <th>Record (seconds)</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#if !loading}
-          {#each current_leaderboard as record, index}
-            <tr>
-              <th scope="row">{index + 1}</th>
-              <td>{record.username}</td>
-              <td>{record.country}</td>
-              <td>{record.result}</td>
-            </tr>
-          {/each}
-        {/if}
-      </tbody>
-    </Table>
-    {#if loading}
-      <div class="d-flex justify-content-center">
-        <Spinner color="info" />
-      </div>
-    {/if}
+    Currently Offline
   </div>
-  <container
-    class="w-100 mt-auto mb-2 d-flex flex-column justify-content-center">
-    <ButtonGroup>
-      <Button href="play" color="primary">Play</Button>
-      <Button href="/" color="secondary">Main Page</Button>
-    </ButtonGroup>
-  </container>
 </div>
